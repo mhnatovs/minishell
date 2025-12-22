@@ -6,7 +6,7 @@
 /*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 16:15:25 by mhnatovs          #+#    #+#             */
-/*   Updated: 2025/12/22 17:10:23 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2025/12/22 17:56:51 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@
 // 	int	infile;//Which file descriptor to read from when running a command (defaults to stdin)
 // 	int	outfile;//Which file descriptor to write to when running a command (defaults to stdout)
 // }		t_mini;
+void	free_split(char **arr);
 int		has_slash(char *str);
 char	*get_path(char **envp);
 char	*find_cmd_path(char *cmd, char **envp);

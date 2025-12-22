@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   find_path.c                                        :+:      :+:    :+:   */
+/*   find_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 17:08:57 by mhnatovs          #+#    #+#             */
-/*   Updated: 2025/12/22 17:21:32 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2025/12/22 17:56:38 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	*join_path(char *path, char *cmd)
 	return (full);
 }
 
-static void	free_split(char **arr)
+void	free_split(char **arr)
 {
 	int	i;
 

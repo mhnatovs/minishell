@@ -6,73 +6,95 @@
 /*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 16:15:14 by mhnatovs          #+#    #+#             */
-/*   Updated: 2025/12/22 17:05:20 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2025/12/22 18:25:35 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+int g_status;
+void	execute(char **args, char **envp)
+{
+	char	*cmd_path;
+	pid_t	pid;
 
-// int	main(int argc, char **argv, char **envp)
-// {
-// 	char	*line;
-// 	(void) argv;
-// 	if (argc != 1)
-// 		return (1);
-// 		// if (ft_strcmp(argv[1], "./minishell") == 0)
-// 		// {
-// 	while (1)
-// 	{
-// 		line = readline("minishell$ ");
-// 		if (!line)
-// 		{
-// 			printf("exit\n");
-// 			break ;
-// 		}
+	cmd_path = find_cmd_path(args[0], envp);
+	pid = fork();
+	if (pid == 0)
+	{
+		execve(cmd_path, &args[0], envp);
+	}
+}
+int	main(int argc, char **argv, char **envp)
+{
+	char	*line;
+	char	**args;
+
+	(void) argv;
+	if (argc != 1)
+		return (1);
+		// if (ft_strcmp(argv[1], "./minishell") == 0)
+		// {
+	while (1)
+	{
+		line = readline("minishell$ ");
+		if (!line)
+		{
+			printf("exit\n");
+			break ;
+		}
+		if (*line)
+			add_history(line);
+		args = ft_split(line, ' ');
+		if (!args || !args[0])
+		{
+			free_split(args);
+			continue ;
+		}
 		
-// 		if (*line)
-// 			add_history(line);
-// 		free(line);
-// 	}
-// 	// }
-// 	return (0);
+		// printf("%s\n", cmd_path);
+		free_split(args);
+		free(line);
+	}
+	// }
+	return (0);
+}
+
+// void debug_path(char **envp)
+// {
+//     char *path;
+//     char **dirs;
+//     int i;
+
+//     path = get_path(envp);
+//     dirs = ft_split(path, ':');
+//     i = 0;
+//     while (dirs[i])
+//     {
+//         printf("DIR: %s\n", dirs[i]);
+//         i++;
+//     }
 // }
 
-void debug_path(char **envp)
-{
-    char *path;
-    char **dirs;
-    int i;
+// int main(int argc, char **argv, char **envp)
+// {
+// 	char *path;
 
-    path = get_path(envp);
-    dirs = ft_split(path, ':');
-    i = 0;
-    while (dirs[i])
-    {
-        printf("DIR: %s\n", dirs[i]);
-        i++;
-    }
-}
+// 	(void)argc;
+// 	// (void)argv;
 
-int main(int argc, char **argv, char **envp)
-{
-	char *path;
+// 	path = get_path(envp);
+// 	// if (path)
+// 	// 	printf("PATH = %s\n", path);
+// 	// else
+// 	// 	printf("PATH not found\n");
+// 	// debug_path(envp);
+// 	char *cmd_path = find_cmd_path(argv[1], envp);
 
-	(void)argc;
-	// (void)argv;
-
-	path = get_path(envp);
-	if (path)
-		printf("PATH = %s\n", path);
-	else
-		printf("PATH not found\n");
-	debug_path(envp);
-	char *cmd = find_cmd_path(argv[1], envp);
-
-		printf("%s", cmd);
+// 		printf("%s\n", cmd_path);
 
 		
-	return 0;
-}
+// 	return 0;
+// }
 
 /*
 
