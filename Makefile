@@ -6,7 +6,7 @@
 #    By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/19 16:15:33 by mhnatovs          #+#    #+#              #
-#    Updated: 2025/12/19 19:21:21 by mhnatovs         ###   ########.fr        #
+#    Updated: 2025/12/22 17:08:01 by mhnatovs         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ LIBS			= -lreadline
 
 OBJ_DIR			= obj
 
-SRC				= main.c
+SRC				= main.c find_path.c
+
 OBJ				= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
 all: $(NAME)
