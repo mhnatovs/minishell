@@ -6,25 +6,25 @@
 /*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 17:08:57 by mhnatovs          #+#    #+#             */
-/*   Updated: 2025/12/22 17:56:38 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2025/12/25 17:58:53 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	has_slash(char *str)
-{
-	int	i;
+// int	has_slash(char *str)
+// {
+// 	int	i;
 
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '/')
-			return (1);
-		i++;
-	}
-	return (0);
-}
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		if (str[i] == '/')
+// 			return (1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
 
 char	*get_path(char **envp)
 {

@@ -6,7 +6,7 @@
 #    By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/19 16:15:33 by mhnatovs          #+#    #+#              #
-#    Updated: 2025/12/23 17:11:45 by mhnatovs         ###   ########.fr        #
+#    Updated: 2025/12/25 18:23:26 by mhnatovs         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LIBS			= -lreadline
 
 OBJ_DIR			= obj
 
-SRC				= main.c find_cmd.c
+SRC				= main.c find_cmd.c expand_args_and_execute.c split.c
 
 OBJ				= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 

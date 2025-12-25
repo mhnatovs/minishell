@@ -6,89 +6,45 @@
 /*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 16:15:14 by mhnatovs          #+#    #+#             */
-/*   Updated: 2025/12/25 14:56:05 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2025/12/25 19:03:13 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	g_status;
+int	g_status = 0;
 
-void	execute(char **args, char **envp)
-{
-	char	*cmd_path;
-	pid_t	pid;
-	int		status;
+// char	*check_quotes(char *line, char **envp)
+// {
+// 	int		i;
+// 	t_quotes	status;
 
-	cmd_path = find_cmd_path(args[0], envp);
-	if (!cmd_path)
-	{
-		printf("%s: command not found\n", args[0]);
-		g_status = 127;
-		return ;
-	}
-	pid = fork();
-	if (pid == 0)
-	{
-		execve(cmd_path, args, envp);
-		perror("execve");
-		exit(126);
-	}
-	else if (pid > 0)
-	{
-		waitpid(pid, &status, 0);
-		if (WIFEXITED(status))
-			g_status = WEXITSTATUS(status);
-	}
-}
-int	count_args(char **args)
-{
-	int		i;
+// 	status = NOT_IN_QUOTES;
+// 	i = 0;
+// 	while (line[i])
+// 	{
+// 		if (line[i] == '\'' && status == NOT_IN_QUOTES)
+// 			status = IN_SINGLE_QUOTES;
+// 		else if (line[i] == '\'' && status == IN_SINGLE_QUOTES)
+// 			status = NOT_IN_QUOTES;
+// 		else if (line[i] == '"' && status == NOT_IN_QUOTES)
+// 			status = IN_DOUBLE_QUOTES;
+// 		else if (line[i] == '"' && status == IN_DOUBLE_QUOTES)
+// 			status = NOT_IN_QUOTES;
+// 		// else if (line[i] == '$' && status != IN_SINGLE_QUOTES)
+		
+// 		i++;
+// 	}
+// }
 
-	i = 0;
-	while (args[i])
-		i++;
-	return (i);
-}
+// char **ft_split_args(char *line)
+// {
+// 	char	**res;
+// 	int		i;
 
-char	*get_env_value(char *arg)
-{
-	char	*str;
-
-	str = getenv(arg);//sets pointer to evnironment variable's value
-	if (!str)
-		return (ft_strdup(""));
-	return (ft_strdup(str));
-}
-
-char	*expanded_arg(char *arg)
-{
-	if (ft_strcmp(arg, "$?") == 0)
-		return ft_itoa(g_status);
-	if (arg[0] == '$' && arg[1])
-		return (get_env_value(arg + 1));
-	return (ft_strdup(arg));
-}
-
-char	**expanded_args(char **args)
-{
-	int		i;
-	char	**ptrs;
-	int		size;
-
-	i = 0;
-	size = count_args(args);
-	ptrs = malloc(sizeof(char *) * (size + 1));
-	if (!ptrs)
-		return (NULL);
-	while (args[i])
-	{
-		ptrs[i] = expanded_arg(args[i]);
-		i++;
-	}
-	ptrs[i] = NULL;
-	return (ptrs);
-}
+// 	i = 0;
+	
+// }
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -109,7 +65,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		if (*line)
 			add_history(line);
-		args = ft_split(line, ' ');
+		args = lexer_split(line);
 		if (!args || !args[0])
 		{
 			free_split(args);
@@ -166,22 +122,13 @@ int	main(int argc, char **argv, char **envp)
 // 	return 0;
 // }
 /*
-readline
 rl_clear_history
 rl_on_new_line
 rl_replace_line
 rl_redisplay
-add_history
-printf
-malloc
-free
-write
-access
-open, read
+open
 close
-fork
 wait
-waitpid
 wait3
 wait4
 signal
@@ -189,14 +136,12 @@ sigaction
 sigemptyset
 sigaddset
 kill
-exit
 getcwd
 chdir
 stat
 lstat
 fstat
 unlink
-execve
 dup
 dup2
 pipe,
@@ -204,12 +149,10 @@ opendir
 readdir
 closedir
 strerror
-perror
 isatty
 ttyname
 ttyslot
 ioctl
-getenv
 tcsetattr
 tcgetattr
 tgetent

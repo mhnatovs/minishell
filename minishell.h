@@ -6,7 +6,7 @@
 /*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 16:15:25 by mhnatovs          #+#    #+#             */
-/*   Updated: 2025/12/22 17:56:51 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2025/12/25 19:00:52 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@
 # include <readline/history.h>
 # include <signal.h>
 # include "libft/libft.h"
+
+extern int	g_status;
+
+typedef enum	e_quotes
+{
+	NOT_IN_QUOTES,
+	IN_SINGLE_QUOTES,
+	IN_DOUBLE_QUOTES
+}	t_quotes;
 
 //Exit status of the most-recently-executed command
 // int	g_status;
@@ -50,8 +59,17 @@
 // 	int	outfile;//Which file descriptor to write to when running a command (defaults to stdout)
 // }		t_mini;
 void	free_split(char **arr);
-int		has_slash(char *str);
+// int		has_slash(char *str);
 char	*get_path(char **envp);
 char	*find_cmd_path(char *cmd, char **envp);
+
+void	execute(char **args, char **envp);
+int		count_args(char **args);
+char	*get_env_value(char *arg);
+char	*expanded_arg(char *arg);
+char	**expanded_args(char **args);
+
+char	**lexer_split(char *str);
+int		ft_isspace(int c);
 
 #endif
