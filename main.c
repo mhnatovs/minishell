@@ -6,7 +6,7 @@
 /*   By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/19 16:15:14 by mhnatovs          #+#    #+#             */
-/*   Updated: 2025/12/23 20:00:40 by mhnatovs         ###   ########.fr       */
+/*   Updated: 2025/12/25 14:56:05 by mhnatovs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,23 @@ int	count_args(char **args)
 		i++;
 	return (i);
 }
+
+char	*get_env_value(char *arg)
+{
+	char	*str;
+
+	str = getenv(arg);//sets pointer to evnironment variable's value
+	if (!str)
+		return (ft_strdup(""));
+	return (ft_strdup(str));
+}
+
 char	*expanded_arg(char *arg)
 {
 	if (ft_strcmp(arg, "$?") == 0)
 		return ft_itoa(g_status);
+	if (arg[0] == '$' && arg[1])
+		return (get_env_value(arg + 1));
 	return (ft_strdup(arg));
 }
 
@@ -65,7 +78,7 @@ char	**expanded_args(char **args)
 
 	i = 0;
 	size = count_args(args);
-	ptrs = malloc(sizeof(char *) * size + 1);
+	ptrs = malloc(sizeof(char *) * (size + 1));
 	if (!ptrs)
 		return (NULL);
 	while (args[i])
@@ -112,9 +125,10 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		execute(expanded, envp);
+		free_split(expanded);
 		free_split(args);
 		free(line);
-		printf("DEBUG g_status = %d\n", g_status);
+		// printf("DEBUG g_status = %d\n", g_status);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: mhnatovs <mhnatovs@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/10 17:00:43 by mhnatovs          #+#    #+#              #
-#    Updated: 2025/12/23 19:59:28 by mhnatovs         ###   ########.fr        #
+#    Updated: 2025/12/25 13:05:50 by mhnatovs         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ SRC				= ft_atoi.c ft_bzero.c ft_calloc.c ft_isalnum.c \
 				ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c \
 				ft_putendl_fd.c ft_putnbr_fd.c ft_strcmp.c
 
-OBJ				= $(SRC:.c=.o)
+OBJ_DIR			= obj
+
+OBJ				= $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
 CC				= cc
 
@@ -30,6 +32,12 @@ CFLAGS			= -Wall -Wextra -Werror
 
 $(NAME):		$(OBJ)
 		ar rcs $(NAME) $(OBJ)
+
+$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+		$(CC) $(FLAGS) -c $< -o $@
+
+$(OBJ_DIR):
+		mkdir -p $(OBJ_DIR)
 
 all:			$(NAME)
 
