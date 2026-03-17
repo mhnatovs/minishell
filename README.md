@@ -16,7 +16,7 @@ By building Minishell, students learn how command interpreters work, how process
 #### Installation
 Clone the repo:
 ```bash
-git clone https://github.com/Fiona-87327/minishell.git
+git clone https://github.com/mhnatovs/minishell.git
 ```
 
 To compile the project, run:
